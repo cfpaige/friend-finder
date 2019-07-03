@@ -9,6 +9,6 @@ app.get('/', function(req,res) {
 });
 
 // Start our server
-server.listen(PORT, function() {
-  console.log("Server listening on: http://localhost:" + PORT);
+app.listen(PORT, function() {
+  console.log("Server listening on: " + PORT);
 });
