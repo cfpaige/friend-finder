@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Friend Finder Survey</title>
+</head>
+<body>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="jumbotron">
+            <h1>DogTag Survey</h1>
+            <p class="lead">
+                Go for it.
+            </p>
+          </div>
+          <form class="p-3">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" />
+            </div>
+            <div class="form-group">
+              <label for="photo">Photo URL</label>
+              <input type="url" id="photo" />
+            </div>
+            <div class="form-group">
+              <h5>Question 1</h5>
+              <select name="q1">
+                <option value="1">1 (Strongly Disagree)</option>
+                <option value="2">2</option>
+                <option value="3">3 (Neutral)</option>
+                <option value="4">4</option>
+                <option value="5">5 (Strongly Agree)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <h5>Question 2</h5>
+              <select name="q2">
+                <option value="1">1 (Strongly Disagree)</option>
+                <option value="2">2</option>
+                <option value="3">3 (Neutral)</option>
+                <option value="4">4</option>
+                <option value="5">5 (Strongly Agree)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <h5>Question 3</h5>
+              <select name="q3">
+                <option value="1">1 (Strongly Disagree)</option>
+                <option value="2">2</option>
+                <option value="3">3 (Neutral)</option>
+                <option value="4">4</option>
+                <option value="5">5 (Strongly Agree)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <h5>Question 4</h5>
+              <select name="q4">
+                <option value="1">1 (Strongly Disagree)</option>
+                <option value="2">2</option>
+                <option value="3">3 (Neutral)</option>
+                <option value="4">4</option>
+                <option value="5">5 (Strongly Agree)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <h5>Question 5</h5>
+              <select name="q5">
+                <option value="1">1 (Strongly Disagree)</option>
+                <option value="2">2</option>
+                <option value="3">3 (Neutral)</option>
+                <option value="4">4</option>
+                <option value="5">5 (Strongly Agree)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <h5>Question 6</h5>
+              <select name="q6">
+                <option value="1">1 (Strongly Disagree)</option>
+                <option value="2">2</option>
+                <option value="3">3 (Neutral)</option>
+                <option value="4">4</option>
+                <option value="5">5 (Strongly Agree)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <h5>Question 7</h5>
+              <select name="q7">
+                <option value="1">1 (Strongly Disagree)</option>
+                <option value="2">2</option>
+                <option value="3">3 (Neutral)</option>
+                <option value="4">4</option>
+                <option value="5">5 (Strongly Agree)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <h5>Question 8</h5>
+              <select name="q8">
+                <option value="1">1 (Strongly Disagree)</option>
+                <option value="2">2</option>
+                <option value="3">3 (Neutral)</option>
+                <option value="4">4</option>
+                <option value="5">5 (Strongly Agree)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <h5>Question 9</h5>
+              <select name="q9">
+                <option value="1">1 (Strongly Disagree)</option>
+                <option value="2">2</option>
+                <option value="3">3 (Neutral)</option>
+                <option value="4">4</option>
+                <option value="5">5 (Strongly Agree)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <h5>Question 10</h5>
+              <select name="q10">
+                <option value="1">1 (Strongly Disagree)</option>
+                <option value="2">2</option>
+                <option value="3">3 (Neutral)</option>
+                <option value="4">4</option>
+                <option value="5">5 (Strongly Agree)</option>
+              </select>
+            </div>
+            <input
+              class="btn btn-primary"
+              type="submit"
+              id="submit"
+              value="Get Match"
+            />
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="results-modal" class="modal bd-example-modal-lg" role="dialog" tabindex="-1" style="display:none;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Your Best Match!</h5>
+      </div>
+      <!-- Modal content -->
+      <div class="modal-body">
+        <button type="button" class="close"><span>&times;</span></button>
+        <h2 id="match-name"></h2>
+        <img id="match-image" src="" class="img-fluid" />
+      </div>
+    </div>
+    </div>
+    </div>
+
+    <script>
+      const modal = document.querySelector("#results-modal");
+      document
+        .querySelector("#submit")
+        .addEventListener("click", function(event) {
+          event.preventDefault();
+          const name = document.querySelector("#name").value;
+          const photoURL = document.querySelector("#photo").value;
+          const answers = [];
+          for (let i = 1; i < 11; i++) {
+            answers.push(document.querySelector(`select[name="q${i}"]`).value);
+          }
+          const newDog = {
+            name: name,
+            photoURL: photoURL,
+            answers: answers
+          };
+          const xhr = new XMLHttpRequest();
+          xhr.open("POST", "/api/friends");
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+              const bestMatch = JSON.parse(xhr.response);
+              document.querySelector("#match-name").innerText = bestMatch.name;
+              document.querySelector("#match-image").src = bestMatch.photoURL;
+              modal.style.display = "block";
+            }
+          };
+          xhr.setRequestHeader("Content-Type", "application/json");
+          xhr.send(JSON.stringify(newDog));
+        });
+      const closeButton = document.querySelector(".close");
+      closeButton.onclick = function() {
+        modal.style.display = "none";
+      };
+    </script>
+  </body>
+</html>
+</body>
+</html>
